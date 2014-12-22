@@ -14,11 +14,20 @@ type msg struct {
     Time int64
 }
 
+const (  
+    CONN_HOST = "localhost"
+    CONN_PORT = "3333"
+    CONN_TYPE = "tcp"
+)
+
 func main() {
-	conn, err := net.Dial("tcp", "localhost:8080")
+	conn, err := net.Dial(CONN_TYPE, CONN_HOST + ":"+ CONN_PORT)
 	if err != nil {
 		// handle error
 	}
+
+	clientIP,err := externalIP()
+	log.Printf("Client IP address:%s", clientIP)
 
 	m := msg{"Client", "192.0.0.1", 4444}
 	m_json,err := json.Marshal(m)
